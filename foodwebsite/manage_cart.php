@@ -96,7 +96,7 @@ if(isset($_POST["Remove_Item"]))
 						foreach($_SESSION["shopping_cart"] as $keys => $values)
 						{
 					?>
-					<!--<tr>
+					<!-- <tr>
 						<td><?php echo $values["item_name"]; ?></td>
 						<td><?php echo $values["item_quantity"]; ?></td>
 						<td>$ <?php echo $values["item_price"]; ?></td>
@@ -107,7 +107,7 @@ if(isset($_POST["Remove_Item"]))
 							<input type="hidden" name="item_name" value="<?php echo $values['item_name']; ?>">
 							</form> 
 						</td>					
-					</tr>-->
+					</tr> -->
 					<tr>
 						<td><?php echo $values["item_name"]; ?></td>
 						<td><input class='text-center item_quantity' type='number' onchange="qtotal()" value="<?php echo $values['item_quantity']; ?>" min='1' max='10'></td> 
@@ -128,8 +128,7 @@ if(isset($_POST["Remove_Item"]))
 					?>
 					<tr>
 						<td colspan="3" align="right">Total</td>
-						<td align="right">$ <?php echo number_format($total, 2); ?></td>
-						<td></td>
+						<td id="total" name="amount">$</td>
 					</tr>
 
 					<?php
@@ -186,16 +185,21 @@ if(isset($_POST["Remove_Item"]))
 }*/
 ?>
 <script>
-		var item_price=document.getElementsByClassName('item_price');
-		var item_quantity=document.getElementsByClassName('item_quantity');
-		var itotal=document.getElementsByClassName('itotal');
+	var gt=0;
+	var item_price=document.getElementsByClassName('item_price');
+	var item_quantity=document.getElementsByClassName('item_quantity');
+	var itotal=document.getElementsByClassName('itotal');
+	var total=document.getElementById('total');
 
-		function qtotal(){
-			for(i=0;i<item_price.length;i++){
-				itotal[i].innerText=(item_quantity[i].value)*(item_price[i].value);
+	function qtotal(){
+		gt=0;
 
-			}
+		for(i=0;i<item_price.length;i++){
+			itotal[i].innerText=(item_quantity[i].value)*(item_price[i].value);
+			gt = gt + (item_price[i].value) * (item_quantity[i].value);
 		}
-		qtotal();
+		total.innerText = "$ " + gt;
+	}
+	qtotal();
 
 </script>
